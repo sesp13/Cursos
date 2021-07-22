@@ -96,12 +96,14 @@ async function deleteUsers(req = request, res = response) {
   // const user = await User.findByIdAndDelete(id);
 
   //Logic delete
-  const user = await User.findByIdAndUpdate(id, {state: false});
+  const user = await User.findByIdAndUpdate(id, { state: false });
+
+  const authUser = req.authUser;
 
   res.json({
-    message: "DELETE API - CONTROLLER",
-    id,
-    user
+    message: "DELETE USER API - CONTROLLER",
+    user,
+    authUser,
   });
 }
 

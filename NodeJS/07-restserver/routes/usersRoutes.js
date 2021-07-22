@@ -1,7 +1,14 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
 
-const { fieldValidator } = require("../middlewares/fieldValidator");
+//Improve middlewares import
+const {
+  fieldValidator,
+  validateJWT,
+  isAdminRole,
+  hasRole,
+} = require("../middlewares");
+
 const {
   isValidRole,
   checkEmailExistence,
@@ -58,6 +65,8 @@ router.patch("/", patchUsers);
 router.delete(
   "/:id",
   [
+    validateJWT,
+    hasRole("ADMIN_ROLE", "SALES_ROLE"),
     check("id", "Is not a valid Id").isMongoId(),
     check("id").custom(checkUserExistenceById),
     fieldValidator,

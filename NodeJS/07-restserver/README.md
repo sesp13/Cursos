@@ -1,5 +1,7 @@
-# Rest API Basica
+# Rest Server Node
 
-Una REST API creada con node mostrando sus fundamentos
+Una REST Server creado con node mostrando sus fundamentos, usos y potencial
 
-Recuerden reconstruir los modulos de Node para ejecutar este proyecto
+Para ejecutar este proyecto
+1. Reconstruir los módulos de node
+2. Crear el archivo .env para el manejo de las variables de entorno

@@ -13,6 +13,7 @@ class Server {
 
     //Routes Path
     this.usersApiPath = "/api/users/";
+    this.authPath = "/api/auth/";
 
     //DB Connection
     this.dataBaseConnection();
@@ -42,6 +43,8 @@ class Server {
   routes() {
     //End points
     this.app.use(this.usersApiPath, require("../routes/usersRoutes"));
+    this.app.use(this.authPath, require("../routes/authRoutes"));
+
   }
 
   listen() {
