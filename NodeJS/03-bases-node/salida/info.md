@@ -1,0 +1,1 @@
+Este directorio contiene la salida del programa
