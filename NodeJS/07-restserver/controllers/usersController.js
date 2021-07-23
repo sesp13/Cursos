@@ -50,7 +50,7 @@ async function populateUsers(req = request, res = response) {
 
   const salt = bcryptjs.genSaltSync();
 
-  for (let i = 1; i <= 50; i++) {
+  for (let i = 1; i <= 10; i++) {
     let password = bcryptjs.hashSync(`user${i}`, salt);
 
     let user = new User({

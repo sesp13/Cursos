@@ -1,7 +1,7 @@
 # Rest Server Node
 
-Una REST Server creado con node mostrando sus fundamentos, usos y potencial
+A REST Server created with node showing up it's fundaments, common uses and potential
 
-Para ejecutar este proyecto
-1. Reconstruir los módulos de node
-2. Crear el archivo .env para el manejo de las variables de entorno
+To run this project
+1. Reinstall node_modules with npm i command
+2. Create .env file for enviroment variables, you can use example.env to know wich variables you must put on your application

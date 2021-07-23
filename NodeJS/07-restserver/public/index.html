@@ -2,39 +2,63 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-signin-client_id"
-        content="413438018271-3ja5lgg721ltsvm1860qafviior8ruek.apps.googleusercontent.com">
-    <link rel="stylesheet" href="./styles/styles.css">
-    <title>Google Sign In</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-signin-client_id"
+    content="413438018271-3ja5lgg721ltsvm1860qafviior8ruek.apps.googleusercontent.com">
+  <link rel="stylesheet" href="./styles/styles.css">
+  <title>Web server</title>
 </head>
 
 <body>
-    <h1>Google SignIn</h1>
-    <hr>
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    <hr>
-    <h2>Google Sign Out</h2>
-    <a href="#" onclick="signOut();">Sign out</a>
+  <h1>Welcome to the web server</h1>
+  <hr>
+  <h2>Google sign in</h2>
+  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+  <hr>
+  <h2>Google Sign Out</h2>
+  <a href="#" onclick="signOut();">Sign out</a>
+  <br>
+  <br>
+  <small>Created by SESP13 Developments</small>
+
 </body>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script>
-    function onSignIn(googleUser) {
-        var profile = googleUser.getBasicProfile();
-        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-        console.log('Name: ' + profile.getName());
-        console.log('Image URL: ' + profile.getImageUrl());
-        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-    }
 
-    function signOut() {
-        var auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-            console.log('User signed out.');
-        });
-    }
+  //Google sign in Logic
+  var url = window.location.hostname.includes('localhost') ? 'http://localhost:3000/api/auth/google/' : 'https://curso-node-sesp-13.herokuapp.com/api/auth/google/';
+
+  function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+    //Make request
+    var id_token = googleUser.getAuthResponse().id_token;
+
+    const data = { id_token };
+
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .catch(error => console.log(error));
+
+  }
+
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
 </script>
 
 </html>
