@@ -5,7 +5,6 @@ const { check } = require("express-validator");
 const {
   fieldValidator,
   validateJWT,
-  isAdminRole,
   hasRole,
 } = require("../middlewares");
 
