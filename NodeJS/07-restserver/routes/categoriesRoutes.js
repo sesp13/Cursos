@@ -25,6 +25,7 @@ router.get(
   "/:id",
   [
     check("id", "The id must be valid").isMongoId(),
+    fieldValidator,
     check("id").custom(checkCategorieExistenceById),
     fieldValidator,
   ],
@@ -48,6 +49,7 @@ router.put(
   [
     validateJWT,
     check("id", "The id must be valid").isMongoId(),
+    fieldValidator,
     check("id").custom(checkCategorieExistenceById),
     check("name", "The name field is required").notEmpty(),
     fieldValidator,
@@ -62,6 +64,7 @@ router.delete(
     validateJWT,
     hasRole("ADMIN_ROLE"),
     check("id", "The id must be valid").isMongoId(),
+    fieldValidator,
     check("id").custom(checkCategorieExistenceById),
     fieldValidator,
   ],

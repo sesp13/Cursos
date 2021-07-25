@@ -35,7 +35,6 @@ const getCategoryById = async (req = request, res = response) => {
 
   try {
     let category = await Category.findById(id).populate("userId");
-
     return res.status(200).json({
       category,
     });
@@ -98,11 +97,15 @@ const updateCategory = async (req = request, res = response) => {
     }
 
     //Update category
-    const category = await Category.findByIdAndUpdate(id, { name });
+    const category = await Category.findByIdAndUpdate(
+      id,
+      { name },
+      { new: true }
+    );
 
     return res.status(200).json({
       category,
-      user: `${req.authUser._id} - ${req.authUser.name}`
+      user: `${req.authUser._id} - ${req.authUser.name}`,
     });
   } catch (error) {
     console.log(error);
@@ -117,7 +120,11 @@ const updateCategory = async (req = request, res = response) => {
 const deleteCategory = async (req = request, res = response) => {
   const id = req.params.id;
   try {
-    const category = await Category.findByIdAndUpdate(id, { state: false });
+    const category = await Category.findByIdAndUpdate(
+      id,
+      { state: false },
+      { new: true }
+    );
     return res.status(200).json({
       category,
     });
