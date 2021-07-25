@@ -32,7 +32,8 @@ const validateJWT = async (req = request, res = response, next) => {
         message: "Invalid Token - User Deleted",
       });
     }
-
+    
+    //Put Auth user in the request so other logic methods could know it
     req.authUser = authUser;
 
     //Everything is ok, please continue
