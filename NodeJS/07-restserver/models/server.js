@@ -15,6 +15,7 @@ class Server {
     this.apiPaths = {
       auth: "/api/auth/",
       categories: "/api/categories/",
+      products: "/api/products/",
       users: "/api/users",
     };
 
@@ -45,12 +46,13 @@ class Server {
 
   routes() {
     //End points
-    this.app.use(this.apiPaths.users, require("../routes/usersRoutes"));
     this.app.use(this.apiPaths.auth, require("../routes/authRoutes"));
     this.app.use(
       this.apiPaths.categories,
       require("../routes/categoriesRoutes")
     );
+    this.app.use(this.apiPaths.products, require("../routes/productsRoutes"));
+    this.app.use(this.apiPaths.users, require("../routes/usersRoutes"));
   }
 
   listen() {
