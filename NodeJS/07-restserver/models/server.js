@@ -16,6 +16,7 @@ class Server {
       auth: "/api/auth/",
       categories: "/api/categories/",
       products: "/api/products/",
+      search: "/api/search/",
       users: "/api/users",
     };
 
@@ -52,6 +53,7 @@ class Server {
       require("../routes/categoriesRoutes")
     );
     this.app.use(this.apiPaths.products, require("../routes/productsRoutes"));
+    this.app.use(this.apiPaths.search, require("../routes/searchRoutes"));
     this.app.use(this.apiPaths.users, require("../routes/usersRoutes"));
   }
 
