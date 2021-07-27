@@ -49,12 +49,13 @@ class Server {
     this.app.use(express.static("public"));
 
     //File uploads
-    this.app.use(
-      fileUpload({
-        useTempFiles: true,
-        tempFileDir: "/tmp/",
-      })
-    );
+      this.app.use(
+        fileUpload({
+          useTempFiles: true,
+          tempFileDir: "/tmp/",
+          createParentPath: true
+        })
+      );
     
   }
 
