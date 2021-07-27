@@ -225,7 +225,7 @@ const showImageCloudDinary = async (req = request, res = response) => {
           type: "upload",
         });
         //Return the image path
-        return 
+        return res.status(200).send(`<img src="${model.img}">`);
         
       } catch (err) {
         console.log(err);
