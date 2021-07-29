@@ -46,7 +46,7 @@ class TicketControl {
     this.last += 1;
     this.tickets.push(new Ticket(this.last, null));
     this.saveDB();
-    return `Ticket + ${this.last}`;
+    return `Ticket ${this.last}`;
   }
 
   attendTicket(desk) {

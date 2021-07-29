@@ -3,19 +3,16 @@ const TicketControl = require("../models/ticketControl");
 const ticketControl = new TicketControl();
 
 const socketController = (socket) => {
-  //Receive a message from teh frontend
-  socket.on("sendMessage", async (payload, callback) => {
-    // Send a message for the client who invoked this socket
+  
+  //Send the last ticket number by deafult
+  socket.emit('lastTicket', ticketControl.last);
 
-    //Way 1
-    const id = "123456";
-    callback(id);
+  socket.on("nextTicket", async (payload, callback) => {
+    const next = ticketControl.next();
+    callback(next);
 
-    //Way 2
-    socket.emit("sendMessage", "Exclusive client " + id);
+    //TO DO notify there is a new pending ticket
 
-    //Send a message to all the connected clients
-    socket.broadcast.emit("sendMessage", "Eveyone knows this");
   });
 };
 
