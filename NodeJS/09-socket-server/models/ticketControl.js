@@ -5,10 +5,10 @@ const Ticket = require("./ticket");
 
 class TicketControl {
   constructor() {
-    this.last = 0;
+    this.lastNumber = 0;
     this.today = new Date().getDate();
-    this.tickets = [];
-    this.last4 = [];
+    this.pendingTickets = [];
+    this.last4Tickets = [];
 
     //Initial methods
     this.init();
@@ -16,21 +16,26 @@ class TicketControl {
 
   toJson() {
     return {
-      last: this.last,
+      lastNumber: this.lastNumber,
       today: this.today,
-      tickets: this.tickets,
-      last4: this.last4,
+      pendingTickets: this.pendingTickets,
+      last4Tickets: this.last4Tickets,
     };
   }
 
   init() {
     //Read a json like a boss
-    const { last, today, tickets, last4 } = require("../db/data.json");
+    const {
+      lastNumber,
+      today,
+      pendingTickets,
+      last4Tickets,
+    } = require("../db/data.json");
 
     if (today == this.today) {
-      this.tickets = tickets;
-      this.last = last;
-      this.last4 = last4;
+      this.pendingTickets = pendingTickets;
+      this.lastNumber = lastNumber;
+      this.last4Tickets = last4Tickets;
     } else {
       //It's another day
       this.saveDB();
@@ -43,30 +48,37 @@ class TicketControl {
   }
 
   next() {
-    this.last += 1;
-    this.tickets.push(new Ticket(this.last, null));
+    this.lastNumber += 1;
+    this.pendingTickets.push(new Ticket(this.lastNumber, null));
     this.saveDB();
-    return `Ticket ${this.last}`;
+    return `Ticket ${this.lastNumber}`;
   }
 
   attendTicket(desk) {
-    if (this.tickets.length == 0) return null;
+    if (this.pendingTickets.length == 0) return null;
 
     //Revome first ticket from line
-    const ticket = this.tickets.shift();
+    const ticket = this.pendingTickets.shift();
 
     //Asign desk
     ticket.desk = desk;
 
-    this.last4.unshift(ticket);
+    this.last4Tickets.unshift(ticket);
 
-    if (this.last4 > 4) {
-      this.last4.splice(-1, 1);
-    }
+    //Only keep the last 4 aattented tickets
+    if (this.last4Tickets.length > 4) this.last4Tickets.splice(-1, 1);
 
     this.saveDB();
 
     return ticket;
+  }
+
+  resetCount() {
+    this.lastNumber = 0;
+    this.pendingTickets = [];
+    this, (this.last4Tickets = []);
+    this.today = new Date().getDate();
+    this.saveDB();
   }
 }
 
