@@ -1,7 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-
 import userRoutes from '../routes/user';
+
+import { db } from '../db/conn';
 
 class Server {
 
@@ -14,6 +15,9 @@ class Server {
   constructor() {
     this.app = express();
     this.port = process.env.PORT || "3000";
+
+    //Database
+    this.dbConnection();
 
     //Middlewares
     this.middlewares();
@@ -42,6 +46,16 @@ class Server {
     this.app.listen(this.port, () => {
       console.log("Sever running on port " + this.port);
     });
+  }
+
+  async dbConnection() {
+    try {
+      await db.authenticate();
+      console.log("DbOnline")
+    }
+    catch (error) {
+      throw new Error(error);
+    }
   }
 
 
