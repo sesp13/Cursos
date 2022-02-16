@@ -1,3 +1,3 @@
-# Cursos
+# Courses: Node from Zero to expert
 
-Repositorio con el contenido generado por los cursos que vaya tomando con el tiempo
+Repo with the content of Node de cero a experto de Fernando Herrera
