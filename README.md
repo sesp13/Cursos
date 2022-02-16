@@ -1,3 +1,3 @@
-# Courses: Node from Zero to expert
+# Node from Zero to expert
 
-Repo with the content of Node de cero a experto from Fernando Herrera
+Content adapted to complete the course Node de cero a experto 2021 from Fernando Herrera
